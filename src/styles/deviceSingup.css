@@ -1,0 +1,42 @@
+@media(max-width: 768px){
+
+    .top__menu > a{
+        display: none;
+    }
+
+main{
+    margin-top: 8.5rem;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+
+}
+
+}
+
+@media(min-width: 769px){
+
+    .top__menu > i{
+        display: none;
+    }
+
+    main{
+        margin-top: 8.5rem;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    .top__header__expanded{
+        display: none;
+    }
+
+    .main__singup_form{
+    
+       
+        width: 50vw;
+        
+    }
+}

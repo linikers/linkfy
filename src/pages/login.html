@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="Pt-Br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--font awersome-->
+    <script
+      src="https://kit.fontawesome.com/9eb5a7eb39.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- toastify -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/globalStyle.css" />
+    <link rel="stylesheet" href="../styles/deviceLogin.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
+    <link rel="stylesheet" href="../styles/deviceLogin.css" />
+
+    <script type="module" src="../javaScript/login.js" defer></script>
+
+    <title>linkfy</title>
+  </head>
+  <body>
+    <header class="top__header">
+      <figure class="top__logo">
+        <img src="../assets/img/spotify.svg" />
+        <p>Kenziefy</p>
+      </figure>
+
+      <div class="top__menu">
+        <i class="fa-solid fa-bars"></i>
+        <a class="btn" href="../../index.html">Home</a>
+        <a class="btn white" href="./singup.html">Cadastre-se</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="main__login_form">
+        <div class="container__form">
+          <h1>Login</h1>
+          <form id="login__form">
+            <input
+              class="input__email"
+              name="email"
+              id="email"
+              type="text"
+              placeholder="Digite seu e-mail"
+              required="true"
+            />
+            <input
+              class="input__password"
+              name="password"
+              id="password"
+              type="password"
+              placeholder="Digite sua senha"
+              required="true"
+            />
+
+            <button id="loginBtn" type="submit" class="btn">Entrar</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <figure>
+      <img class="avatar" src="../assets/img/avatar.svg" alt="avatar" />
+    </figure>
+  </body>
+</html>

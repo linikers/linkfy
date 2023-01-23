@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="Pt-Br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/globalStyle.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/dashBoard.css" />
+    <link rel="stylesheet" href="../styles/deviceDashBoard.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9eb5a7eb39.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>linkfy</title>
+  </head>
+
+  <body>
+    <header class="top__header--dashboard">
+      <figure class="top__logo"></figure>
+
+      <div class="top__menu--user">
+        <img
+          class="image__perfil"
+          src="../assets/img/spotify.svg"
+          alt="imagemPerfil"
+        />
+        <button id="logoutButton" class="btn--dash">Sair</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="container__search">
+        <div class="div__search">
+          <input
+            id="searchByNameId"
+            class="search__input"
+            type="text"
+            placeholder="Pesquisar"
+            name="name"
+          />
+          <button class="search" id="buttonSearchByName">
+            <i class="fa-solid fa-magnifying-glass 5x"></i>
+          </button>
+        </div>
+
+        <ul class="container__getByName"></ul>
+      </section>
+
+      <section class="container__getAlbum">
+        <select name="" id="">
+          <option>Escolha um gênero</option>
+          <option value="rock">Rock</option>
+          <option value="rap">Rap</option>
+          <option value="pop">Pop</option>
+          <option value="soul">Soul</option>
+          <option value="pagode">Pagode</option>
+          <option value="reggae">Reggae</option>
+          <option value="lofi">Lofi</option>
+          <option value="forro">Forró</option>
+        </select>
+
+        <ul class="container"></ul>
+      </section>
+
+      <section class="container__mixers">
+        <h2>MIXERS</h2>
+        <ul class="containerOne"></ul>
+        <ul class="containerTwo"></ul>
+        <ul class="containerThree"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="../javaScript/dashBoard.js"></script>
+  </body>
+</html>

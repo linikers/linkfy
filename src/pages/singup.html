@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="Pt-Br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--font awersome-->
+    <script
+      src="https://kit.fontawesome.com/9eb5a7eb39.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- toastify -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/globalStyle.css" />
+    <link rel="stylesheet" href="../styles/singup.css" />
+    <link rel="stylesheet" href="../styles/deviceSingup.css" />
+
+    <!--scripts-->
+    <script type="module" src="../javaScript/singup.js" defer></script>
+
+    <title>Cadastro</title>
+  </head>
+  <body>
+    <header class="top__header">
+      <figure class="top__logo">
+        <img src="../assets/img/spotify.svg" />
+        <p>linkfy</p>
+      </figure>
+
+      <div class="top__menu">
+        <i class="fa-solid fa-bars"></i>
+
+        <a class="btn" href="/index.html">Home</a>
+        <a class="btn white" href="./login.html">Login</a>
+      </div>
+    </header>
+    <main>
+      <section class="main__singup_form">
+        <div class="container__form">
+          <h1>Cadastre-se</h1>
+          <form id="cadastro__form">
+            <input type="text" placeholder="Seu nome" required="true" />
+            <input type="email" placeholder="Seu e-mail" required="true" />
+            <input type="password" placeholder="Sua senha" required="true" />
+            <button class="btn" type="submit">Enviar</button>
+            <span>ou</span>
+          </form>
+          <a href="/index.html"
+            ><button class="btn white return">Retomar</button></a
+          >
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

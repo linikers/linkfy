@@ -1,0 +1,42 @@
+@media (max-width: 768px) {
+    .top__menu > a {
+        display: none;
+    }
+
+    main {
+        margin-top: 8.5rem;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+    }
+}
+@media (min-width: 769px) {
+    .top__menu > i {
+        display: none;
+    }
+
+    .top__header__expanded {
+        display: none;
+    }
+
+    main{
+        margin-top: 8.5rem;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main__login_form{
+    
+       
+        width: 50vw;
+        
+    }
+
+    .avatar{
+        top: 4rem;
+        left: -2rem;
+    }
+}
