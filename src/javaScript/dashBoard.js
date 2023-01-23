@@ -1,426 +1,399 @@
-import { getAlbum, getSearch,getGenre,getMixerOne,getMixertwo,getMixerThree} from "./request.js";
-
+import {
+  getAlbum,
+  getSearch,
+  getGenre,
+  getMixerOne,
+  getMixertwo,
+  getMixerThree,
+} from "./request.js";
 
 export async function renderSearchName(album) {
+  const getUl = document.querySelector(".container__getByName");
 
-    const getUl = document.querySelector('.container__getByName')
-     
-    getUl.innerHTML = ''
+  getUl.innerHTML = "";
 
-    console.log(album);
+  console.log(album);
 
-    const albumRender = searchByName(album.id, album.picture_big, album.type, album.name,album.link)
-    getUl.appendChild(albumRender)
-
+  const albumRender = searchByName(
+    album.id,
+    album.picture_big,
+    album.type,
+    album.name,
+    album.link
+  );
+  getUl.appendChild(albumRender);
 }
 
+function searchByName(id, picture_big, type, name, link) {
+  const tagLi = document.createElement("li");
+  const imageArtist = document.createElement("img");
+  const tagDivInfo = document.createElement("div");
+  const tagType = document.createElement("p");
+  const artistName = document.createElement("h2");
+  const tagDivFooter = document.createElement("div");
+  const tagLinkDirection = document.createElement("a");
 
-function searchByName(id, picture_big, type, name,link) {
+  tagLi.classList.add("card");
+  imageArtist.classList.add("userPerfil");
+  tagDivInfo.classList.add("card__info");
+  tagDivFooter.classList.add("card__footer");
+  tagLinkDirection.classList.add("linkDirection");
 
-    const tagLi            = document.createElement('li')
-    const imageArtist      = document.createElement('img')
-    const tagDivInfo       = document.createElement('div')
-    const tagType          = document.createElement('p')
-    const artistName       = document.createElement('h2')
-    const tagDivFooter     = document.createElement('div')
-    const tagLinkDirection = document.createElement('a')
+  tagLinkDirection.id = id;
+  tagLinkDirection.href = link;
+  tagLinkDirection.target = "_blank";
 
-    tagLi.classList.add('card')
-    imageArtist.classList.add('userPerfil')
-    tagDivInfo.classList.add('card__info')
-    tagDivFooter.classList.add('card__footer')
-    tagLinkDirection.classList.add('linkDirection')
-    
+  imageArtist.src = picture_big;
+  imageArtist.alt = name;
 
-    tagLinkDirection.id     = id
-    tagLinkDirection.href   = link
-    tagLinkDirection.target = '_blank'
+  tagType.innerText = type;
+  artistName.innerText = name;
 
-    imageArtist.src = picture_big
-    imageArtist.alt = name
+  tagLinkDirection.innerText = "Ir para o album no Deezer";
 
-    tagType.innerText    = type
-    artistName.innerText = name
+  tagLi.append(imageArtist, tagDivInfo, tagDivFooter);
+  tagDivInfo.append(tagType, artistName);
+  tagDivInfo.append(tagLinkDirection);
 
-    tagLinkDirection.innerText = 'Ir para o album no Deezer'
-    
-    tagLi.append(imageArtist, tagDivInfo, tagDivFooter)
-    tagDivInfo.append(tagType, artistName)
-    tagDivInfo.append(tagLinkDirection)
-
-    return tagLi
-
+  return tagLi;
 }
-
 
 function getByName() {
+  const getInput = document.querySelector("#searchByNameId");
 
-    const getInput = document.querySelector('#searchByNameId')
+  const getButtonSearch = document.querySelector("#buttonSearchByName");
 
-    const getButtonSearch = document.querySelector('#buttonSearchByName')
+  getButtonSearch.addEventListener("click", async () => {
+    getInput.innerHTML = "";
 
-    getButtonSearch.addEventListener('click', async () => {
-       
-        getInput.innerHTML = ''
-
-        if (getInput.value == '') {
-
-            await getAlbum()
-
-        }
-        else {
-            await getSearch(getInput.value.toLowerCase())
-        }
-
-    })
-
+    if (getInput.value == "") {
+      await getAlbum();
+    } else {
+      await getSearch(getInput.value.toLowerCase());
+    }
+  });
 }
 
+async function renderAlbum() {
+  const getSection = document.querySelector(".container");
+  const global = await getAlbum();
 
-async function renderAlbum(){
+  const data = global.data;
 
-    const getSection = document.querySelector('.container')
-    const global = await getAlbum()
-    
-    const data = global.data
-    
-    data.forEach(albumArray =>{
-        let {id,album,title,artist,preview} = albumArray
-        
-        const albumRender = creatAlbum(id,album.cover_big,title,artist.type,artist.name,preview )
-        getSection.appendChild(albumRender)
-    })
-   
-    
+  data.forEach((albumArray) => {
+    let { id, album, title, artist, preview } = albumArray;
+
+    const albumRender = creatAlbum(
+      id,
+      album.cover_big,
+      title,
+      artist.type,
+      artist.name,
+      preview
+    );
+    getSection.appendChild(albumRender);
+  });
 }
 
+function creatAlbum(id, cover_big, title, type, name, preview) {
+  const tagLi = document.createElement("li");
+  const imageAlbum = document.createElement("img");
+  const tagDivInfo = document.createElement("div");
+  const albumName = document.createElement("h2");
+  const subTitleName = document.createElement("p");
+  const artistName = document.createElement("p");
+  const tagDivFooter = document.createElement("div");
+  const tagButtonPlay = document.createElement("button");
+  const playAudio = document.createElement("audio");
 
-function creatAlbum(id,cover_big,title,type,name,preview){
-    
-    const tagLi            = document.createElement('li')
-    const imageAlbum       = document.createElement('img')
-    const tagDivInfo       = document.createElement('div')
-    const albumName        = document.createElement('h2')
-    const subTitleName     = document.createElement('p')
-    const artistName       = document.createElement('p')
-    const tagDivFooter     = document.createElement('div')
-    const tagButtonPlay    = document.createElement('button')
-    const playAudio        = document.createElement('audio')
+  tagLi.classList.add("card");
+  imageAlbum.classList.add("user");
+  tagDivInfo.classList.add("card__info");
+  tagDivFooter.classList.add("card__footer");
+  tagButtonPlay.classList.add("playAndStop");
 
-    tagLi.classList.add('card')
-    imageAlbum.classList.add('user')
-    tagDivInfo.classList.add('card__info')
-    tagDivFooter.classList.add('card__footer')
-    tagButtonPlay.classList.add('playAndStop')
-    
-    tagButtonPlay.id    = id
+  tagButtonPlay.id = id;
 
-    imageAlbum.src = cover_big
-    imageAlbum.alt = cover_big
+  imageAlbum.src = cover_big;
+  imageAlbum.alt = cover_big;
 
-    playAudio.src = preview
-    playAudio.id  = id
-    
-    
-    
-    albumName.innerText    = title
-    subTitleName.innerText = `${type} :`
-    artistName.innerText   = name
+  playAudio.src = preview;
+  playAudio.id = id;
 
-    tagButtonPlay.innerText    = 'Play'
-   
-    tagLi.append(imageAlbum,tagDivInfo,tagDivFooter)
-    tagDivInfo.append(albumName,subTitleName,artistName)
-    tagDivFooter.append(tagButtonPlay,playAudio)
+  albumName.innerText = title;
+  subTitleName.innerText = `${type} :`;
+  artistName.innerText = name;
 
+  tagButtonPlay.innerText = "Play";
 
-    
-      tagButtonPlay.addEventListener('click',()=>{
-        if(tagButtonPlay.innerText == 'Play'){
-            tagButtonPlay.innerText = 'Stop'
-            playAudio.play()
-        }
+  tagLi.append(imageAlbum, tagDivInfo, tagDivFooter);
+  tagDivInfo.append(albumName, subTitleName, artistName);
+  tagDivFooter.append(tagButtonPlay, playAudio);
 
-        else if(tagButtonPlay.innerText == 'Stop'){
-            tagButtonPlay.innerText = 'Play'
-            playAudio.pause()
-         }
-        
-        })
- 
-    
-    return tagLi
+  tagButtonPlay.addEventListener("click", () => {
+    if (tagButtonPlay.innerText == "Play") {
+      tagButtonPlay.innerText = "Stop";
+      playAudio.play();
+    } else if (tagButtonPlay.innerText == "Stop") {
+      tagButtonPlay.innerText = "Play";
+      playAudio.pause();
+    }
+  });
+
+  return tagLi;
 }
-
 
 async function searchGenre(genreName) {
-    const select = document.querySelector('select')
-    const getSection = document.querySelector('.container')
-    
-    
-    select.addEventListener('change', async () => {
-        
-        const filtro = await getGenre(select.value)
-        
-        const search = filtro.data
-        getSection.innerHTML =''
-        search.forEach(albumArray =>{
+  const select = document.querySelector("select");
+  const getSection = document.querySelector(".container");
 
-            let {id,album,title,artist,preview} = albumArray
-            
-            const albumRender = creatAlbum(id,album.cover_big,title,artist.type,artist.name,preview )
-            
-            getSection.appendChild(albumRender)
+  select.addEventListener("change", async () => {
+    const filtro = await getGenre(select.value);
 
-        })
-    })
-    
+    const search = filtro.data;
+    getSection.innerHTML = "";
+    search.forEach((albumArray) => {
+      let { id, album, title, artist, preview } = albumArray;
 
+      const albumRender = creatAlbum(
+        id,
+        album.cover_big,
+        title,
+        artist.type,
+        artist.name,
+        preview
+      );
+
+      getSection.appendChild(albumRender);
+    });
+  });
 }
-
-
 
 function logoutButt() {
+  const button = document.querySelector("#logoutButton");
 
-    const button = document.querySelector('#logoutButton')
-
-    button.addEventListener('click', () => {
-
-        window.location.replace('/')
-    })
+  button.addEventListener("click", () => {
+    window.location.replace("../../index.html");
+  });
 }
-
 
 async function renderMixerOne() {
+  const getSection = document.querySelector(".containerOne");
+  const global = await getAlbum();
 
-    const getSection = document.querySelector('.containerOne')
-    const global = await getAlbum()
+  const data = global.data;
 
-    const data = global.data
+  data.forEach((albumArray) => {
+    let { id, album, title, artist, preview } = albumArray;
 
-    data.forEach(albumArray => {
-        let { id, album, title, artist, preview } = albumArray
-
-        const albumRender = creatMixer(id, album.cover_big, title, artist.type, artist.name, preview)
-        getSection.appendChild(albumRender)
-    })
-
-
+    const albumRender = creatMixer(
+      id,
+      album.cover_big,
+      title,
+      artist.type,
+      artist.name,
+      preview
+    );
+    getSection.appendChild(albumRender);
+  });
 }
-
-
 
 function creatMixer(id, cover_big, title, type, name, preview) {
+  const tagLi = document.createElement("li");
+  const imageAlbum = document.createElement("img");
+  const tagDivInfo = document.createElement("div");
+  const albumName = document.createElement("h2");
+  const subTitleName = document.createElement("p");
+  const artistName = document.createElement("p");
+  const tagDivFooter = document.createElement("div");
+  const tagButtonPlay = document.createElement("button");
+  const playAudio = document.createElement("audio");
 
-    const tagLi            = document.createElement('li')
-    const imageAlbum       = document.createElement('img')
-    const tagDivInfo       = document.createElement('div')
-    const albumName        = document.createElement('h2')
-    const subTitleName     = document.createElement('p')
-    const artistName       = document.createElement('p')
-    const tagDivFooter     = document.createElement('div')
-    const tagButtonPlay    = document.createElement('button')
-    const playAudio        = document.createElement('audio')
+  tagLi.classList.add("card");
+  imageAlbum.classList.add("user");
+  tagDivInfo.classList.add("card__info");
+  tagDivFooter.classList.add("card__footer");
 
-    tagLi.classList.add('card')
-    imageAlbum.classList.add('user')
-    tagDivInfo.classList.add('card__info')
-    tagDivFooter.classList.add('card__footer')
-   
-    tagButtonPlay.classList.add('playAndStop')
+  tagButtonPlay.classList.add("playAndStop");
 
-    tagButtonPlay.id = id
+  tagButtonPlay.id = id;
 
-    imageAlbum.src = cover_big
-    imageAlbum.alt = cover_big
+  imageAlbum.src = cover_big;
+  imageAlbum.alt = cover_big;
 
-    playAudio.src = preview
-    playAudio.id = id
+  playAudio.src = preview;
+  playAudio.id = id;
 
-    albumName.innerText = title
-    subTitleName.innerText = `${type} :`
-    artistName.innerText = name
+  albumName.innerText = title;
+  subTitleName.innerText = `${type} :`;
+  artistName.innerText = name;
 
-    tagButtonPlay.innerText = 'Play'
+  tagButtonPlay.innerText = "Play";
 
-    tagLi.append(imageAlbum, tagDivInfo, tagDivFooter)
-    tagDivInfo.append(albumName, subTitleName, artistName)
-    tagDivFooter.append(tagButtonPlay,playAudio)
+  tagLi.append(imageAlbum, tagDivInfo, tagDivFooter);
+  tagDivInfo.append(albumName, subTitleName, artistName);
+  tagDivFooter.append(tagButtonPlay, playAudio);
 
-    tagButtonPlay.addEventListener('click', () => {
+  tagButtonPlay.addEventListener("click", () => {
+    if (tagButtonPlay.innerText == "Play") {
+      tagButtonPlay.innerText = "Stop";
+      playAudio.play();
+    } else if (tagButtonPlay.innerText == "Stop") {
+      tagButtonPlay.innerText = "Play";
+      playAudio.pause();
+    }
+  });
 
-        if (tagButtonPlay.innerText == 'Play') {
-            tagButtonPlay.innerText = 'Stop'
-            playAudio.play()
-        }
-
-        else if (tagButtonPlay.innerText == 'Stop') {
-            tagButtonPlay.innerText = 'Play'
-            playAudio.pause()
-
-        }
-
-    })
-
-    return tagLi
+  return tagLi;
 }
-
 
 async function renderMixerTwo() {
+  const getSection = document.querySelector(".containerTwo");
+  const global = await getMixertwo();
 
-    const getSection = document.querySelector('.containerTwo')
-    const global = await getMixertwo()
+  const data = global.data;
 
-    const data = global.data
+  data.forEach((albumArray) => {
+    let { id, album, title, artist, preview } = albumArray;
 
-    data.forEach(albumArray => {
-        let { id, album, title, artist, preview } = albumArray
-
-        const albumRender = creatMixerTwo(id, album.cover_big, title, artist.type, artist.name, preview)
-        getSection.appendChild(albumRender)
-    })
-
-
+    const albumRender = creatMixerTwo(
+      id,
+      album.cover_big,
+      title,
+      artist.type,
+      artist.name,
+      preview
+    );
+    getSection.appendChild(albumRender);
+  });
 }
-
 
 function creatMixerTwo(id, cover_big, title, type, name, preview) {
+  const tagLi = document.createElement("li");
+  const imageAlbum = document.createElement("img");
+  const tagDivInfo = document.createElement("div");
+  const albumName = document.createElement("h2");
+  const subTitleName = document.createElement("p");
+  const artistName = document.createElement("p");
+  const tagDivFooter = document.createElement("div");
+  const tagButtonFavorit = document.createElement("button");
+  const tagButtonPlay = document.createElement("button");
+  const playAudio = document.createElement("audio");
 
-    const tagLi            = document.createElement('li')
-    const imageAlbum       = document.createElement('img')
-    const tagDivInfo       = document.createElement('div')
-    const albumName        = document.createElement('h2')
-    const subTitleName     = document.createElement('p')
-    const artistName       = document.createElement('p')
-    const tagDivFooter     = document.createElement('div')
-    const tagButtonFavorit = document.createElement('button')
-    const tagButtonPlay    = document.createElement('button')
-    const playAudio        = document.createElement('audio')
+  tagLi.classList.add("card");
+  imageAlbum.classList.add("user");
+  tagDivInfo.classList.add("card__info");
+  tagDivFooter.classList.add("card__footer");
 
-    tagLi.classList.add('card')
-    imageAlbum.classList.add('user')
-    tagDivInfo.classList.add('card__info')
-    tagDivFooter.classList.add('card__footer')
-   
-    tagButtonPlay.classList.add('playAndStop')
+  tagButtonPlay.classList.add("playAndStop");
 
-    tagButtonPlay.id = id
+  tagButtonPlay.id = id;
 
-    imageAlbum.src = cover_big
-    imageAlbum.alt = cover_big
+  imageAlbum.src = cover_big;
+  imageAlbum.alt = cover_big;
 
-    playAudio.src = preview
-    playAudio.id = id
+  playAudio.src = preview;
+  playAudio.id = id;
 
-    albumName.innerText = title
-    subTitleName.innerText = `${type} :`
-    artistName.innerText = name
+  albumName.innerText = title;
+  subTitleName.innerText = `${type} :`;
+  artistName.innerText = name;
 
-    tagButtonPlay.innerText = 'Play'
+  tagButtonPlay.innerText = "Play";
 
-    tagLi.append(imageAlbum, tagDivInfo, tagDivFooter)
-    tagDivInfo.append(albumName, subTitleName, artistName)
-    tagDivFooter.append(tagButtonPlay,playAudio)
+  tagLi.append(imageAlbum, tagDivInfo, tagDivFooter);
+  tagDivInfo.append(albumName, subTitleName, artistName);
+  tagDivFooter.append(tagButtonPlay, playAudio);
 
-    tagButtonPlay.addEventListener('click', () => {
-        if (tagButtonPlay.innerText == 'Play') {
-            tagButtonPlay.innerText = 'Stop'
-            playAudio.play()
-        }
+  tagButtonPlay.addEventListener("click", () => {
+    if (tagButtonPlay.innerText == "Play") {
+      tagButtonPlay.innerText = "Stop";
+      playAudio.play();
+    } else if (tagButtonPlay.innerText == "Stop") {
+      tagButtonPlay.innerText = "Play";
+      playAudio.pause();
+    }
+  });
 
-        else if (tagButtonPlay.innerText == 'Stop') {
-            tagButtonPlay.innerText = 'Play'
-            playAudio.pause()
-        }
-
-    })
-
-
-    return tagLi
+  return tagLi;
 }
-
 
 async function renderMixerThree() {
+  const getSection = document.querySelector(".containerThree");
+  const global = await getMixerThree();
 
-    const getSection = document.querySelector('.containerThree')
-    const global = await getMixerThree()
+  const data = global.data;
 
-    const data = global.data
+  data.forEach((albumArray) => {
+    let { id, album, title, artist, preview } = albumArray;
 
-    data.forEach(albumArray => {
-        let { id, album, title, artist, preview } = albumArray
-
-        const albumRender = creatMixerThree(id, album.cover_big, title, artist.type, artist.name, preview)
-        getSection.appendChild(albumRender)
-    })
-
-
+    const albumRender = creatMixerThree(
+      id,
+      album.cover_big,
+      title,
+      artist.type,
+      artist.name,
+      preview
+    );
+    getSection.appendChild(albumRender);
+  });
 }
-
 
 function creatMixerThree(id, cover_big, title, type, name, preview) {
+  const tagLi = document.createElement("li");
+  const imageAlbum = document.createElement("img");
+  const tagDivInfo = document.createElement("div");
+  const albumName = document.createElement("h2");
+  const subTitleName = document.createElement("p");
+  const artistName = document.createElement("p");
+  const tagDivFooter = document.createElement("div");
+  const tagButtonFavorit = document.createElement("button");
+  const tagButtonPlay = document.createElement("button");
+  const playAudio = document.createElement("audio");
 
-    const tagLi            = document.createElement('li')
-    const imageAlbum       = document.createElement('img')
-    const tagDivInfo       = document.createElement('div')
-    const albumName        = document.createElement('h2')
-    const subTitleName     = document.createElement('p')
-    const artistName       = document.createElement('p')
-    const tagDivFooter     = document.createElement('div')
-    const tagButtonFavorit = document.createElement('button')
-    const tagButtonPlay    = document.createElement('button')
-    const playAudio        = document.createElement('audio')
+  tagLi.classList.add("card");
+  imageAlbum.classList.add("user");
+  tagDivInfo.classList.add("card__info");
+  tagDivFooter.classList.add("card__footer");
 
-    tagLi.classList.add('card')
-    imageAlbum.classList.add('user')
-    tagDivInfo.classList.add('card__info')
-    tagDivFooter.classList.add('card__footer')
-   
-    tagButtonPlay.classList.add('playAndStop')
+  tagButtonPlay.classList.add("playAndStop");
 
-    tagButtonPlay.id = id
+  tagButtonPlay.id = id;
 
-    imageAlbum.src = cover_big
-    imageAlbum.alt = cover_big
+  imageAlbum.src = cover_big;
+  imageAlbum.alt = cover_big;
 
-    playAudio.src = preview
-    playAudio.id = id
+  playAudio.src = preview;
+  playAudio.id = id;
 
-    albumName.innerText = title
-    subTitleName.innerText = `${type} :`
-    artistName.innerText = name
+  albumName.innerText = title;
+  subTitleName.innerText = `${type} :`;
+  artistName.innerText = name;
 
-    tagButtonPlay.innerText = 'Play'
+  tagButtonPlay.innerText = "Play";
 
-    tagLi.append(imageAlbum, tagDivInfo, tagDivFooter)
-    tagDivInfo.append(albumName, subTitleName, artistName)
-    tagDivFooter.append(tagButtonPlay,playAudio)
+  tagLi.append(imageAlbum, tagDivInfo, tagDivFooter);
+  tagDivInfo.append(albumName, subTitleName, artistName);
+  tagDivFooter.append(tagButtonPlay, playAudio);
 
-    tagButtonPlay.addEventListener('click', () => {
-        if (tagButtonPlay.innerText == 'Play') {
-            tagButtonPlay.innerText = 'Stop'
-            playAudio.play()
-        }
+  tagButtonPlay.addEventListener("click", () => {
+    if (tagButtonPlay.innerText == "Play") {
+      tagButtonPlay.innerText = "Stop";
+      playAudio.play();
+    } else if (tagButtonPlay.innerText == "Stop") {
+      tagButtonPlay.innerText = "Play";
+      playAudio.pause();
+    }
+  });
 
-        else if (tagButtonPlay.innerText == 'Stop') {
-            tagButtonPlay.innerText = 'Play'
-            playAudio.pause()
-        }
-
-    })
-
-
-    return tagLi
+  return tagLi;
 }
 
-
-getByName()
-renderSearchName()
-logoutButt()
-searchGenre()
-renderAlbum()
-renderMixerOne()
-renderMixerTwo()
-renderMixerThree()
-
-
+getByName();
+renderSearchName();
+logoutButt();
+searchGenre();
+renderAlbum();
+renderMixerOne();
+renderMixerTwo();
+renderMixerThree();
