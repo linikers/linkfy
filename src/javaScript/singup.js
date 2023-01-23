@@ -31,7 +31,7 @@ function showSandwishMenu() {
 
     bottomElement.insertAdjacentHTML(
       "beforeend",
-      `<a class='btn' href='/'>Home</a>
+      `<a class='btn' href='../../index.html'>Home</a>
         <a class='btn white' href='./login.html'>Login</a>`
     );
 
